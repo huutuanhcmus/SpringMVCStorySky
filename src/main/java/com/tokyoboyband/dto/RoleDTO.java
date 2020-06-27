@@ -1,15 +1,9 @@
-package com.tokyoboyband.model;
+package com.tokyoboyband.dto;
 
-public class RoleModel extends AbstractModel<RoleModel> {
-	private Long id;
+public class RoleDTO extends AbstractDTO<RoleDTO> {
 	private String name;
 	private String code;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}

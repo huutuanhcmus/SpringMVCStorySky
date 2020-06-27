@@ -20,6 +20,9 @@ public class StoryEntity extends BaseEntity {
 	@Column(name = "introduce")
 	private String introduce;
 	
+	@Column(name = "image")
+	private String image;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
@@ -56,6 +59,14 @@ public class StoryEntity extends BaseEntity {
 
 	public void setCollectionStory(List<CollectionStoryEntity> collectionStory) {
 		this.collectionStory = collectionStory;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

@@ -1,18 +1,31 @@
-package com.tokyoboyband.model;
+package com.tokyoboyband.dto;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public abstract class AbstractModel<T> {
-	private java.sql.Timestamp createdDate;
-	private java.sql.Timestamp modifiedDate;
+public abstract class AbstractDTO<T> {
+	private Long id;
+	private Date createdDate;
+	private Date modifiedDate;
 	private String createdBy;
 	private String modifiedBy;
 	private String search;
 	
-	private ArrayList<T> listResult = new ArrayList<T>();
+	private ArrayList<T> listResult = new ArrayList<T>(0);
 	
-	public java.sql.Timestamp getCreatedDate() {
+	
+	
+	public Date getCreatedDate() {
 		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 	public String getSearch() {
 		return search;
@@ -23,9 +36,7 @@ public abstract class AbstractModel<T> {
 	public void setCreatedDate(java.sql.Timestamp timestamp) {
 		this.createdDate = timestamp;
 	}
-	public java.sql.Timestamp getModifiedDate() {
-		return modifiedDate;
-	}
+
 	public void setModifiedDate(java.sql.Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
@@ -46,6 +57,12 @@ public abstract class AbstractModel<T> {
 	}
 	public void setListResult(ArrayList<T> listResult) {
 		this.listResult = listResult;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

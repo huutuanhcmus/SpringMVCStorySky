@@ -1,12 +1,12 @@
-package com.tokyoboyband.model;
+package com.tokyoboyband.dto;
 
-public class UserModel extends AbstractModel<UserModel> {
+public class UserDTO extends AbstractDTO<UserDTO> {
 	private Long id;
 	private String username;
 	private String password;
 	private String fullname;
 	private int status;
-	private Long roleid;
+	private Long role_id;
 	public Long getId() {
 		return id;
 	}
@@ -38,10 +38,10 @@ public class UserModel extends AbstractModel<UserModel> {
 		this.status = status;
 	}
 	public Long getRoleid() {
-		return roleid;
+		return role_id;
 	}
 	public void setRoleid(Long roleid) {
-		this.roleid = roleid;
+		this.role_id = roleid;
 	}
 	
 }
