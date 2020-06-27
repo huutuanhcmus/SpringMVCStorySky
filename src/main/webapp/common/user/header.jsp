@@ -21,18 +21,18 @@
 					<i onclick="btnsearch()" class="fas fa-search" aria-hidden="true"></i> 
 					<input id="searchform" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Tên truyện" aria-label="Search">
 				</div>
-				<c:if test="${not empty USERMODEL}">
+				<security:authorize access = "isAuthenticated()">
 					<li class="nav-item"><a class="nav-link"
 						href='<c:url value="/ke-sach"/>'>Tủ sách của tôi</a></li>
 					<li class="nav-item"><a class="nav-link" href='#'>Xin chào
-							${USERMODEL.fullname}</a></li>
+							<%=SecurityUtils.getPrincipal().getFullName()%></a></li>
 					<li class="nav-item"><a class="nav-link" type="post"
-						href='<c:url value="/dang-xuat?action=logout"/>'>Thoát</a></li>
-				</c:if>
-				<c:if test="${empty USERMODEL}">
+						href='<c:url value="/dang-xuat"/>'>Thoát</a></li>
+				</security:authorize>
+				<security:authorize access = "isAnonymous()">
 					<li class="nav-item"><a class="nav-link"
 						href='<c:url value="/dang-nhap?action=login"/>'>Đăng nhập</a></li>
-				</c:if>
+				</security:authorize>
 			</ul>
 		</div>
 	</div>
