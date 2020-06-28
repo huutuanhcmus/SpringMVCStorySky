@@ -7,14 +7,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tokyoboyband.dto.CollectionStoryDTO;
 import com.tokyoboyband.dto.Message;
 import com.tokyoboyband.dto.StoryDTO;
+import com.tokyoboyband.service.impl.CollectionStoryService;
 import com.tokyoboyband.service.impl.StoryService;
 
 @RestController(value = "storyAPIOfUser")
 public class StoryAPI {
 	@Autowired
 	private StoryService storyService;
+	@Autowired
+	private CollectionStoryService collectionStoryService;
 	
 	@PostMapping("/api/updateStory")
 	public StoryDTO createNew(@RequestBody StoryDTO storyDTO) {
@@ -50,6 +54,20 @@ public class StoryAPI {
 		storyService.delete(storyDTO);
 		Message message = new Message();
 		message.success("Xóa thành công");
+		result.setMessage(message);
+		return result;
+	}
+	
+	@PostMapping("/api/updateCollectionStory")
+	public CollectionStoryDTO createCollectionStory(@RequestBody CollectionStoryDTO collectionStoryDTO) {
+		CollectionStoryDTO result = collectionStoryService.save(collectionStoryDTO);
+		Message message = new Message();
+		if(result != null) {
+			message.success("Thêm mới tập truyện thành công");
+		}
+		else {
+			message.danger("Thêm truyện tập mới thất bại");
+		}
 		result.setMessage(message);
 		return result;
 	}

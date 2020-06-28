@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.tokyoboyband.converter.CollectionStoryConverter;
 import com.tokyoboyband.dto.CollectionStoryDTO;
 import com.tokyoboyband.entity.CollectionStoryEntity;
+import com.tokyoboyband.entity.StoryEntity;
 import com.tokyoboyband.repository.CollectionStoryRepository;
 import com.tokyoboyband.repository.StoryRepository;
 import com.tokyoboyband.service.ICollectionStotyService;
@@ -25,5 +26,15 @@ public class CollectionStoryService implements ICollectionStotyService {
 		CollectionStoryEntity collectionStoryEntities = collectionStoryRepository.findOneById(id);
 		CollectionStoryDTO resultsCollectionStoryDTO = collectionStoryConverter.toDto(collectionStoryEntities);
 		return resultsCollectionStoryDTO;
+	}
+
+	@Override
+	public CollectionStoryDTO save(CollectionStoryDTO dto) {
+		CollectionStoryEntity collectionStory = collectionStoryConverter.toEntity(dto);
+		collectionStory.setStory(storyRepository.findOne(dto.getStory_id()));
+		if(collectionStoryRepository.save(collectionStory) != null)
+			return dto;
+		else
+			return null;
 	}	
 }

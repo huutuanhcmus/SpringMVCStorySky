@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="APIurl" value="/api-updatecollectionstory" />
-<c:url var="NewURL" value="/danh-sach-tap-truyen" />
+<c:url var="APIurl" value="/api/updateCollectionStory" />
+<c:url var="NewURL" value="/ke-sach/danh-sach-tap-truyen" />
 
 <!DOCTYPE html>
 <html>
@@ -19,20 +19,20 @@
 			</div>
 			<input type="text" class="form-control" aria-label="Default"
 				aria-describedby="inputGroup-sizing-default"
-				value="${collectionstory.nameCollectionStory}" name="nameCollectionStory">
+				value="${collectionstory.name}" name="name">
 		</div>
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Nội dung</span>
 			</div>
 			<textarea class="form-control" aria-label="With textarea" id="content"
-				name="contentCollectionStory">${collectionstory.contentCollectionStory}</textarea>
+				name="contentCollectionStory">${collectionstory.content}</textarea>
 		</div>
-		<c:if test="${collectionstory.idCollectionStory != -1}">
+		<c:if test="${collectionstory.id != -1}">
 			<input type="button" class="btn btn-white btn-warning btn-bold"
 			value="Chỉnh sửa" id="btnUpdateStory" />
 		</c:if>
-		<c:if test="${collectionstory.idCollectionStory == -1}">
+		<c:if test="${collectionstory.id == -1}">
 			<input type="button" class="btn btn-white btn-warning btn-bold"
 			value="Thêm truyện mới" id="btnUpdateStory" />
 		</c:if>
@@ -50,11 +50,11 @@
 			$.each(formData, function(i, v) {
 				data["" + v.name + ""] = v.value;
 			});
-			data["idStory"] = ${collectionstory.idStory};
-			if(${collectionstory.idCollectionStory} != -1){
-				data["idCollectionStory"] = ${collectionstory.idCollectionStory};
+			data["story_id"] = ${collectionstory.story_id};
+			if(${collectionstory.id} != -1){
+				data["id"] = ${collectionstory.id};
 			}
-			data["contentCollectionStory"] = editor.getData();
+			data["content"] = editor.getData();
 			updateStory(data);
 		});
 		
@@ -68,10 +68,10 @@
 				data : JSON.stringify(data),
 				dataType : 'json',
 				success : function(result) {
-					window.location.href = "${NewURL}?idStory="+result.idStory+"&alert="+result.alert+"&message="+result.message;
+					window.location.href = "${NewURL}?idStory="+result.story_id+"&alert="+result.message.alert+"&message="+result.message.message;
 				},
 				error : function(error) {
-					window.location.href = "${NewURL}?idStory="+error.idStory+"&alert="+error.alert+"&message="+error.message;
+					window.location.href = "${NewURL}?idStory="+error.story_id+"&alert="+error.message.alert+"&message="+error.message.message;
 				}
 			});
 		}

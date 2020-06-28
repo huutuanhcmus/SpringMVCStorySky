@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var ="NewURL" value="/chinh-sua-tap-truyen"/>
-<c:url var ="AddURL" value="/them-tap-truyen"/>
+<c:url var ="AddURL" value="/ke-sach/danh-sach-tap-truyen/them-tap-truyen"/>
 <c:url var ="ThisURL" value="/danh-sach-tap-truyen"/>
 <c:url var ="DelURL" value="/xoa-tap-truyen"/>
 <!DOCTYPE html>
@@ -12,9 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${not empty message.message}">
-		<div class="alert alert-${message.alert}">
-  			${message.message}
+	<c:if test="${not empty story.message.message}">
+		<div class="alert alert-${story.message.alert}">
+  			${story.message.message}
 		</div>
 	</c:if>
 	<table class="table">

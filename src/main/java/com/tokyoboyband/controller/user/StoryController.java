@@ -90,10 +90,27 @@ public class StoryController {
 	}
 	
 	@RequestMapping(value = "/ke-sach/danh-sach-tap-truyen", method = RequestMethod.GET)
-	public ModelAndView showChangeListCollectionStory(@RequestParam("idStory") Long idStory) {
+	public ModelAndView showChangeListCollectionStory(@RequestParam("idStory") Long idStory, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/usercollectionbookshelf");
 		StoryDTO story = storyService.findOneById(idStory);
+		Message messageOb = new Message();
+		messageOb.setAlert(request.getParameter("alert"));
+		messageOb.setMessage(request.getParameter("message"));
+		story.setMessage(messageOb);
 		mav.addObject("story", story);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ke-sach/danh-sach-tap-truyen/them-tap-truyen", method = RequestMethod.GET)
+	public ModelAndView NewCollectionStory(@RequestParam("idStory") Long idStory) {
+		ModelAndView mav = new ModelAndView("user/updatecollectionstory");
+		StoryDTO story = storyService.findOneById(idStory);
+		CollectionStoryDTO collectionStoryDto = new CollectionStoryDTO();
+		collectionStoryDto.setId(-1l);
+		collectionStoryDto.setStory_id(idStory);
+		mav.addObject("collectionstory", collectionStoryDto);
+		mav.addObject("story", story);
+		mav.addObject("action", "POST");
 		return mav;
 	}
 }
