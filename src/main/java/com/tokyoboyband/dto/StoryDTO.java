@@ -1,11 +1,21 @@
 package com.tokyoboyband.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StoryDTO extends AbstractDTO<StoryDTO> {
 	private Long category_id;
 	private String name;
 	private String introduce;
 	private String image;
+	private List<CollectionStoryDTO> collectionStoryList = new ArrayList<CollectionStoryDTO>(0);
 	
+	public List<CollectionStoryDTO> getCollectionStoryList() {
+		return collectionStoryList;
+	}
+	public void setCollectionStoryList(List<CollectionStoryDTO> collectionStoryList) {
+		this.collectionStoryList = collectionStoryList;
+	}
 	public Long getCategory_id() {
 		return category_id;
 	}

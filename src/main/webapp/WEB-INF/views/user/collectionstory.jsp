@@ -9,24 +9,24 @@
 </head>
 <body>
 	<form action="<c:url value='/tap-truyen'/>" id="formSubmit" method="get">
-		<input type="hidden" value="${story.idStory}" id="idstory"
+		<input type="hidden" value="${story.id}" id="idstory"
 			name="idStory" /> <input type="hidden" value=""
 			id="idcollectionstory" name="idCollectionStory" />
 		<div align="middle">
-			<img class="img" align="middle" src="${story.imageStory}"
+			<img class="img" align="middle" src="${story.image}"
 				alt="Los Angeles" width="auto" height="500" align="middle">
 		</div>
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">${story.nameStory}</th>
+					<th scope="col">${story.name}</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="item" items="${colectionStoryList.listResult}">
+				<c:forEach var="item" items="${story.collectionStoryList}">
 					<tr>
-						<th onclick="CollectionStory(${item.idCollectionStory})"
-							scope="col">${item.nameCollectionStory}</th>
+						<th onclick="CollectionStory(${item.id})"
+							scope="col">${item.name}</th>
 					</tr>
 				</c:forEach>
 			</tbody>

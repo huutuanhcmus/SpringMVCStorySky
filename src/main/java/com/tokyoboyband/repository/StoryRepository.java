@@ -9,4 +9,5 @@ import com.tokyoboyband.entity.StoryEntity;
 
 public interface StoryRepository extends JpaRepository<StoryEntity, Long> {
 	List<StoryEntity> findByCategory(CategoryEntity id);
+	StoryEntity findOneById(Long id);
 }

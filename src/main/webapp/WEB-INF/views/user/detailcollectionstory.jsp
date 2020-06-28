@@ -9,10 +9,10 @@
 </head>
 <body>
 	<div align="middle">
-		<img class="img" align="middle" src="${story.imageStory}"
+		<img class="img" align="middle" src="${story.image}"
 			alt="Los Angeles" width="auto" height="500" align="middle">
 	</div>
-	<h3>${colectionStory.nameCollectionStory}</h3>
-	<p>${colectionStory.contentCollectionStory}</p>
+	<h3>${collectionStory.name}</h3>
+	<p>${collectionStory.content}</p>
 </body>
 </html>
