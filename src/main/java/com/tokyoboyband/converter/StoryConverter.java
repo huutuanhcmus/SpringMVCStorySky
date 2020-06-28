@@ -13,10 +13,7 @@ public class StoryConverter {
 		result.setId(entity.getId());
 		result.setIntroduce(entity.getIntroduce());
 		result.setImage(entity.getImage());
-		result.setCreatedBy(entity.getCreatedBy());
-		result.setModifiedBy(entity.getModifiedBy());
-		result.setCreatedDate(entity.getCreatedDate());
-		result.setModifiedDate(entity.getModifiedDate());
+		result.setCategory_id(entity.getCategory().getId());
 		return result;
 	}
 	
@@ -25,6 +22,7 @@ public class StoryConverter {
 		result.setName(dto.getName());
 		result.setIntroduce(dto.getIntroduce());
 		result.setImage(dto.getImage());
+		result.setId(dto.getId());
 		return result;
 	}
 }

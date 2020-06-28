@@ -30,7 +30,7 @@
 				<option selected>Lựa chọn</option>
 				<c:forEach var="item" items="${category.listResult}">
 					<option value="${item.id}"
-						<c:if test="${item.id == story.id}">selected</c:if>>${item.name}</option>
+						<c:if test="${item.id == story.category_id}">selected</c:if>>${item.name}</option>
 				</c:forEach>
 			</select>
 		</div>

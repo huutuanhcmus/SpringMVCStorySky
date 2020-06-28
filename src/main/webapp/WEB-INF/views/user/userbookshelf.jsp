@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var ="NewURL" value="/chinh-sua"/>
+<c:url var ="NewURL" value="/ke-sach/chinh-sua"/>
 <c:url var ="AddURL" value="/ke-sach/them-truyen"/>
 <c:url var ="ThisURL" value="/ke-sach"/>
-<c:url var ="DelURL" value="/xoa-truyen"/>
-<c:url var ="CollectionStoryURL" value="/danh-sach-tap-truyen"/>
+<c:url var ="DelURL" value="/api/xoa-truyen"/>
+<c:url var ="CollectionStoryURL" value="/ke-sach/danh-sach-tap-truyen"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +13,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${not empty message.message}">
-		<div class="alert alert-${message.alert}">
-  			${message.message}
+	<c:if test="${not empty story.message.message}">
+		<div class="alert alert-${story.message.alert}">
+  			${story.message.message}
 		</div>
 	</c:if>
 	<table class="table">
@@ -51,7 +51,7 @@
 		function deleteStory(idStory){
 			var data = {};
 			if(idStory != -1)
-				data["idStory"] = idStory;
+				data["id"] = idStory;
 			deleteStoryItem(data);
 		}
 		
@@ -63,10 +63,10 @@
 				data : JSON.stringify(data),
 				dataType : 'json',
 				success : function(result) {
-					window.location.href = "${ThisURL}?alert="+result.alert+"&message="+result.message;
+					window.location.href = "${ThisURL}?alert="+result.message.alert+"&message="+result.message.message;
 				},
 				error : function(error) {
-					window.location.href = "${ThisURL}?alert="+error.alert+"&message="+error.message;
+					window.location.href = "${ThisURL}?alert="+error.message.alert+"&message="+error.message.message;
 				}
 			});
 		}

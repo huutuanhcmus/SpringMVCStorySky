@@ -13,12 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tokyoboyband.dto.CategoryDTO;
 import com.tokyoboyband.dto.CollectionStoryDTO;
+import com.tokyoboyband.dto.Message;
 import com.tokyoboyband.dto.StoryDTO;
 import com.tokyoboyband.service.impl.CategoryService;
 import com.tokyoboyband.service.impl.CollectionStoryService;
 import com.tokyoboyband.service.impl.StoryService;
 import com.tokyoboyband.utils.SecurityUtils;
-
 
 @Controller(value = "storyControllerOfWeb")
 public class StoryController {
@@ -28,7 +28,7 @@ public class StoryController {
 	private CategoryService categoryService;
 	@Autowired
 	private CollectionStoryService collectionStoryService;
-	
+
 	@RequestMapping(value = "/truyen", method = RequestMethod.GET)
 	public ModelAndView showListCollectionStory(@RequestParam("idStory") Long idFindStory) {
 		ModelAndView mav = new ModelAndView("user/collectionstory");
@@ -36,9 +36,10 @@ public class StoryController {
 		mav.addObject("story", story);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/tap-truyen", method = RequestMethod.GET)
-	public ModelAndView showListDetailCollectionStory(@RequestParam("idCollectionStory") Long idFindCollectionStory, @RequestParam("idStory") Long idFindStory) {
+	public ModelAndView showListDetailCollectionStory(@RequestParam("idCollectionStory") Long idFindCollectionStory,
+			@RequestParam("idStory") Long idFindStory) {
 		ModelAndView mav = new ModelAndView("user/detailcollectionstory");
 		StoryDTO story = storyService.findOneById(idFindStory);
 		mav.addObject("story", story);
@@ -46,25 +47,52 @@ public class StoryController {
 		mav.addObject("collectionStory", collectionStory);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/ke-sach", method = RequestMethod.GET)
-	public ModelAndView showListMyStory() {
+	public ModelAndView showListMyStory(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/userbookshelf");
 		StoryDTO story = new StoryDTO();
-		story.setListResult((ArrayList<StoryDTO>)storyService.findByCreatedBy(SecurityUtils.getUsername()));
+		story.setListResult((ArrayList<StoryDTO>) storyService.findByCreatedByOrModifiedBy(SecurityUtils.getUsername()));
+		Message messageOb = new Message();
+
+			messageOb.setAlert(request.getParameter("alert"));
+			messageOb.setMessage(request.getParameter("message"));
+			story.setMessage(messageOb);
+
 		mav.addObject("story", story);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/ke-sach/them-truyen", method = RequestMethod.GET)
 	public ModelAndView AddNewStory() {
 		ModelAndView mav = new ModelAndView("user/updatestory");
 		CategoryDTO categoryList = new CategoryDTO();
-		categoryList.setListResult((ArrayList<CategoryDTO>)categoryService.findAll()); 
+		categoryList.setListResult((ArrayList<CategoryDTO>) categoryService.findAll());
 		mav.addObject("category", categoryList);
 		mav.addObject("action", "POST");
 		StoryDTO story = new StoryDTO();
 		story.setId(-1l);
+		mav.addObject("story", story);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ke-sach/chinh-sua", method = RequestMethod.GET)
+	public ModelAndView UpdatedStory(@RequestParam("idStory") Long idStory) {
+		ModelAndView mav = new ModelAndView("user/updatestory");
+		CategoryDTO categoryList = new CategoryDTO();
+		categoryList.setListResult((ArrayList<CategoryDTO>) categoryService.findAll());
+		mav.addObject("category", categoryList);
+		mav.addObject("action", "PUT");
+		StoryDTO story = storyService.findOneById(idStory);
+		//story.setCategory_id(idStory);
+		mav.addObject("story", story);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ke-sach/danh-sach-tap-truyen", method = RequestMethod.GET)
+	public ModelAndView showChangeListCollectionStory(@RequestParam("idStory") Long idStory) {
+		ModelAndView mav = new ModelAndView("user/usercollectionbookshelf");
+		StoryDTO story = storyService.findOneById(idStory);
 		mav.addObject("story", story);
 		return mav;
 	}

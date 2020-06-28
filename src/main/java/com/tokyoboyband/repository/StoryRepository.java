@@ -9,6 +9,6 @@ import com.tokyoboyband.entity.StoryEntity;
 
 public interface StoryRepository extends JpaRepository<StoryEntity, Long> {
 	List<StoryEntity> findByCategory(CategoryEntity id);
-	List<StoryEntity> findByCreatedBy(String user);
+	List<StoryEntity> findByCreatedByOrModifiedBy(String user1, String user2);
 	StoryEntity findOneById(Long id);
 }

@@ -10,9 +10,11 @@ import com.tokyoboyband.converter.CollectionStoryConverter;
 import com.tokyoboyband.converter.StoryConverter;
 import com.tokyoboyband.dto.StoryDTO;
 import com.tokyoboyband.dto.CollectionStoryDTO;
+import com.tokyoboyband.entity.CategoryEntity;
 import com.tokyoboyband.entity.CollectionStoryEntity;
 import com.tokyoboyband.entity.StoryEntity;
 import com.tokyoboyband.repository.CategoryRepository;
+import com.tokyoboyband.repository.CollectionStoryRepository;
 import com.tokyoboyband.repository.StoryRepository;
 import com.tokyoboyband.service.IStoryService;
 
@@ -25,6 +27,8 @@ public class StoryService implements IStoryService {
 	private StoryRepository storyRepository;
 	@Autowired
 	private StoryConverter storyConverter;
+	@Autowired
+	private CollectionStoryRepository collectionStoryRepository;
 	@Autowired
 	private CollectionStoryConverter collectionStoryConverter;
 	
@@ -42,9 +46,9 @@ public class StoryService implements IStoryService {
 	}
 
 	@Override
-	public List<StoryDTO> findByCreatedBy(String user) {
+	public List<StoryDTO> findByCreatedByOrModifiedBy(String user) {
 		List<StoryDTO> result = new ArrayList<StoryDTO>();
-		List<StoryEntity> storyEntityList = storyRepository.findByCreatedBy(user);
+		List<StoryEntity> storyEntityList = storyRepository.findByCreatedByOrModifiedBy(user, user);
 		for(StoryEntity item : storyEntityList) {
 			result.add(storyConverter.toDto(item));
 		}
@@ -59,5 +63,14 @@ public class StoryService implements IStoryService {
 			return dto;
 		else
 			return null;
+	}
+
+	@Override
+	public void delete(StoryDTO dto) {
+		StoryEntity story = storyRepository.findOne(dto.getId());
+		for(CollectionStoryEntity item : story.getCollectionStory()) {
+			collectionStoryRepository.delete(item);
+		}
+		storyRepository.delete(dto.getId());
 	}
 }

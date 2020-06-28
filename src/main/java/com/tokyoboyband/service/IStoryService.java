@@ -6,6 +6,7 @@ import com.tokyoboyband.dto.StoryDTO;
 
 public interface IStoryService {
 	StoryDTO findOneById(Long id);
-	List<StoryDTO> findByCreatedBy(String user);
+	List<StoryDTO> findByCreatedByOrModifiedBy(String user);
 	StoryDTO save(StoryDTO dto);
+	void delete(StoryDTO dto);
 }
