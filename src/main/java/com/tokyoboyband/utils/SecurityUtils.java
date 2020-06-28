@@ -15,6 +15,11 @@ public class SecurityUtils {
         return myUser;
     }
 	
+	public static String getUsername() {
+		String username =  (SecurityContextHolder.getContext()).getAuthentication().getName();
+        return username;
+    }
+	
 	@SuppressWarnings("unchecked")
 	public static List<String> getAuthorities() {
 		List<String> results = new ArrayList<>();

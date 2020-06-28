@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="APIurl" value="/api-updateStory" />
+<c:url var="APIurl" value="/api/updateStory" />
 <c:url var="NewURL" value="/ke-sach" />
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
 			</div>
 			<input type="text" class="form-control" aria-label="Default"
 				aria-describedby="inputGroup-sizing-default"
-				value="${story.nameStory}" name="nameStory">
+				value="${story.name}" name="name">
 		</div>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
@@ -26,11 +26,11 @@
 					loại</label>
 			</div>
 			<select class="custom-select" id="inputGroupSelect01"
-				name="idCategory">
+				name="category_id">
 				<option selected>Lựa chọn</option>
 				<c:forEach var="item" items="${category.listResult}">
-					<option value="${item.idCategory}"
-						<c:if test="${item.idCategory == story.idCategory}">selected</c:if>>${item.nameCategory}</option>
+					<option value="${item.id}"
+						<c:if test="${item.id == story.id}">selected</c:if>>${item.name}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -41,20 +41,20 @@
 			</div>
 			<input type="text" class="form-control" aria-label="Default"
 				aria-describedby="inputGroup-sizing-default"
-				value="${story.imageStory}" name="imageStory">
+				value="${story.image}" name="image">
 		</div>
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Giới thiệu</span>
 			</div>
 			<textarea class="form-control" aria-label="With textarea"
-				name="introduceStory">${story.introduceStory}</textarea>
+				name="introduce">${story.introduce}</textarea>
 		</div>
-		<c:if test="${story.idStory != -1}">
+		<c:if test="${story.id != -1}">
 			<input type="button" class="btn btn-white btn-warning btn-bold"
 			value="Chỉnh sửa" id="btnUpdateStory" />
 		</c:if>
-		<c:if test="${story.idStory == -1}">
+		<c:if test="${story.id == -1}">
 			<input type="button" class="btn btn-white btn-warning btn-bold"
 			value="Thêm truyện mới" id="btnUpdateStory" />
 		</c:if>
@@ -67,8 +67,8 @@
 			$.each(formData, function(i, v) {
 				data["" + v.name + ""] = v.value;
 			});
-			if(${story.idStory} != -1)
-				data["idStory"] = ${story.idStory};
+			if(${story.id} != -1)
+				data["id"] = ${story.id};
 			updateStory(data);
 		});
 		
@@ -82,10 +82,10 @@
 				data : JSON.stringify(data),
 				dataType : 'json',
 				success : function(result) {
-					window.location.href = "${NewURL}?alert="+result.alert+"&message="+result.message;
+					window.location.href = "${NewURL}?alert="+result.message.alert+"&message="+result.message.message;
 				},
 				error : function(error) {
-					window.location.href = "${NewURL}?alert="+error.alert+"&message="+error.message;
+					window.location.href = "${NewURL}?alert="+error.message.alert+"&message="+error.message.message;
 				}
 			});
 		}

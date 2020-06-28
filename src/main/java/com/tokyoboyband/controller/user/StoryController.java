@@ -1,5 +1,7 @@
 package com.tokyoboyband.controller.user;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +11,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tokyoboyband.dto.CategoryDTO;
 import com.tokyoboyband.dto.CollectionStoryDTO;
 import com.tokyoboyband.dto.StoryDTO;
+import com.tokyoboyband.service.impl.CategoryService;
 import com.tokyoboyband.service.impl.CollectionStoryService;
 import com.tokyoboyband.service.impl.StoryService;
+import com.tokyoboyband.utils.SecurityUtils;
+
 
 @Controller(value = "storyControllerOfWeb")
 public class StoryController {
 	@Autowired
 	private StoryService storyService;
+	@Autowired
+	private CategoryService categoryService;
 	@Autowired
 	private CollectionStoryService collectionStoryService;
 	
@@ -36,6 +44,28 @@ public class StoryController {
 		mav.addObject("story", story);
 		CollectionStoryDTO collectionStory = collectionStoryService.findOneById(idFindCollectionStory);
 		mav.addObject("collectionStory", collectionStory);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ke-sach", method = RequestMethod.GET)
+	public ModelAndView showListMyStory() {
+		ModelAndView mav = new ModelAndView("user/userbookshelf");
+		StoryDTO story = new StoryDTO();
+		story.setListResult((ArrayList<StoryDTO>)storyService.findByCreatedBy(SecurityUtils.getUsername()));
+		mav.addObject("story", story);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ke-sach/them-truyen", method = RequestMethod.GET)
+	public ModelAndView AddNewStory() {
+		ModelAndView mav = new ModelAndView("user/updatestory");
+		CategoryDTO categoryList = new CategoryDTO();
+		categoryList.setListResult((ArrayList<CategoryDTO>)categoryService.findAll()); 
+		mav.addObject("category", categoryList);
+		mav.addObject("action", "POST");
+		StoryDTO story = new StoryDTO();
+		story.setId(-1l);
+		mav.addObject("story", story);
 		return mav;
 	}
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var ="NewURL" value="/chinh-sua"/>
-<c:url var ="AddURL" value="/them-truyen"/>
+<c:url var ="AddURL" value="/ke-sach/them-truyen"/>
 <c:url var ="ThisURL" value="/ke-sach"/>
 <c:url var ="DelURL" value="/xoa-truyen"/>
 <c:url var ="CollectionStoryURL" value="/danh-sach-tap-truyen"/>
@@ -28,10 +28,10 @@
 		<tbody>
 			<c:forEach var="item" items="${story.listResult}">
 				<tr>
-					<th onclick="collectionstory(${item.idStory})" scope="col">${item.nameStory}</th>
+					<th onclick="collectionstory(${item.id})" scope="col">${item.name}</th>
 					<th scope="col">
-						<i onclick="change(${item.idStory})" data-toggle="tooltip"title="Chỉnh sửa" class="material-icons">system_update_alt</i>
-						<i onclick="deleteStory(${item.idStory})" id="delete" data-toggle="tooltip" title="Xóa truyện" class="material-icons">delete</i> 
+						<i onclick="change(${item.id})" data-toggle="tooltip"title="Chỉnh sửa" class="material-icons">system_update_alt</i>
+						<i onclick="deleteStory(${item.id})" id="delete" data-toggle="tooltip" title="Xóa truyện" class="material-icons">delete</i> 
 					</th>
 
 				</tr>

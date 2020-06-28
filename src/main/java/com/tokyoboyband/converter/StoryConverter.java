@@ -19,4 +19,12 @@ public class StoryConverter {
 		result.setModifiedDate(entity.getModifiedDate());
 		return result;
 	}
+	
+	public StoryEntity toEntity(StoryDTO dto) {
+		StoryEntity result = new StoryEntity();
+		result.setName(dto.getName());
+		result.setIntroduce(dto.getIntroduce());
+		result.setImage(dto.getImage());
+		return result;
+	}
 }
