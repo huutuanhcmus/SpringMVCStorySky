@@ -124,4 +124,13 @@ public class StoryController {
 		mav.addObject("action", "PUT");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/tim-kiem", method = RequestMethod.GET)
+	public ModelAndView SearchStory(@RequestParam("search") String search) {
+		ModelAndView mav = new ModelAndView("user/searchstory");
+		StoryDTO story = new StoryDTO();
+		story.setListResult((ArrayList<StoryDTO>)storyService.findByName(search));
+		mav.addObject("story", story);
+		return mav;
+	}
 }

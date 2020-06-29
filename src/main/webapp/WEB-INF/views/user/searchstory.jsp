@@ -20,8 +20,8 @@
 			<tbody>
 				<c:forEach var="item" items="${story.listResult}">
 					<tr>
-						<th onclick="collectionstory(${item.idStory})" scope="col">${item.nameStory}</th>
-						<th onclick="collectionstory(${item.idStory})" scope="col">${item.introduceStory}</th>
+						<th onclick="collectionstory(${item.id})" scope="col">${item.name}</th>
+						<th onclick="collectionstory(${item.id})" scope="col">${item.introduce}</th>
 
 					</tr>
 				</c:forEach>

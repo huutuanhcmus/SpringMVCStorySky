@@ -73,4 +73,14 @@ public class StoryService implements IStoryService {
 		}
 		storyRepository.delete(dto.getId());
 	}
+
+	@Override
+	public List<StoryDTO> findByName(String name) {
+		List<StoryDTO> result = new ArrayList<StoryDTO>();
+		List<StoryEntity> storyEntity = storyRepository.findByName(name);
+		for(StoryEntity item : storyEntity) {
+			result.add(storyConverter.toDto(item));
+		}
+		return result;
+	}
 }

@@ -9,4 +9,5 @@ public interface IStoryService {
 	List<StoryDTO> findByCreatedByOrModifiedBy(String user);
 	StoryDTO save(StoryDTO dto);
 	void delete(StoryDTO dto);
+	List<StoryDTO> findByName(String name);
 }
