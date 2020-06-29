@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tokyoboyband.dto.CollectionStoryDTO;
 import com.tokyoboyband.dto.Message;
 import com.tokyoboyband.dto.StoryDTO;
+import com.tokyoboyband.dto.UserDTO;
 import com.tokyoboyband.service.impl.CollectionStoryService;
 import com.tokyoboyband.service.impl.StoryService;
+import com.tokyoboyband.service.impl.UserService;
 
 @RestController(value = "storyAPIOfUser")
 public class StoryAPI {
@@ -19,6 +21,8 @@ public class StoryAPI {
 	private StoryService storyService;
 	@Autowired
 	private CollectionStoryService collectionStoryService;
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping("/api/updateStory")
 	public StoryDTO createNew(@RequestBody StoryDTO storyDTO) {
@@ -95,5 +99,19 @@ public class StoryAPI {
 		result.setStory_id(collectionStoryDTO.getStory_id());
 		result.setMessage(message);
 		return result;
+	}
+	
+	@PostMapping("/api/newaccount")
+	public UserDTO NewAccount(@RequestBody UserDTO userDTO) {
+		UserDTO user = new UserDTO();
+		Message message = new Message();
+		if(userService.save(userDTO) != null) {
+			message.success("Tạo tài khoảng thành công");
+		}
+		else {
+			message.danger("Tạo tài khoảng thất bại");
+		}
+		user.setMessage(message);
+		return user;
 	}
 }

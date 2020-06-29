@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tokyoboyband.dto.CategoryDTO;
+import com.tokyoboyband.dto.Message;
 import com.tokyoboyband.service.impl.CategoryService;
 
 @Controller(value = "homeControllerOfWeb")
@@ -32,8 +33,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/dang-nhap" , method = RequestMethod.GET)
-	public ModelAndView loginPage() {
+	public ModelAndView loginPage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("login");
+		Message message = new Message();
+		message.success(request.getParameter("message"));
+		mav.addObject("message", message);
 		return mav;
 	}
 	
@@ -50,5 +54,11 @@ public class HomeController {
 	@RequestMapping(value = "/accessDenied" , method = RequestMethod.GET)
 	public ModelAndView accessDenied() {
 		return new ModelAndView("redirect:/dang-nhap?accessDenied");
+	}
+	
+	@RequestMapping(value = "/dang-ky-tai-khoang" , method = RequestMethod.GET)
+	public ModelAndView registerPage() {
+		ModelAndView mav = new ModelAndView("register");
+		return mav;
 	}
 }
