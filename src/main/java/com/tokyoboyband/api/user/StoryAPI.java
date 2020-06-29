@@ -71,4 +71,29 @@ public class StoryAPI {
 		result.setMessage(message);
 		return result;
 	}
+	
+	@PutMapping("/api/updateCollectionStory")
+	public CollectionStoryDTO UpdatedCollectionStory(@RequestBody CollectionStoryDTO collectionStoryDTO) {
+		CollectionStoryDTO result = collectionStoryService.save(collectionStoryDTO);
+		Message message = new Message();
+		if(result != null) {
+			message.success("Chỉnh sửa tập truyện thành công");
+		}
+		else {
+			message.danger("Chỉnh sửa tập truyện thất bại");
+		}
+		result.setMessage(message);
+		return result;
+	}
+	
+	@DeleteMapping("/api/xoa-tap-truyen")
+	public CollectionStoryDTO DeletedCollectionStory(@RequestBody CollectionStoryDTO collectionStoryDTO) {
+		CollectionStoryDTO result = new CollectionStoryDTO();
+		collectionStoryService.deleteOneById(collectionStoryDTO.getId());
+		Message message = new Message();
+		message.success("Xóa thành công");
+		result.setStory_id(collectionStoryDTO.getStory_id());
+		result.setMessage(message);
+		return result;
+	}
 }

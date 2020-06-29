@@ -36,5 +36,10 @@ public class CollectionStoryService implements ICollectionStotyService {
 			return dto;
 		else
 			return null;
+	}
+
+	@Override
+	public void deleteOneById(Long id) {
+		collectionStoryRepository.delete(id);
 	}	
 }

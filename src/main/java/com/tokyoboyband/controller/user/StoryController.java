@@ -113,4 +113,15 @@ public class StoryController {
 		mav.addObject("action", "POST");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/ke-sach/danh-sach-tap-truyen/chinh-sua-tap-truyen", method = RequestMethod.GET)
+	public ModelAndView UpdatedCollectionStory(@RequestParam("idStory") Long idStory, @RequestParam("idCollectionStory") Long idCollectionStory) {
+		ModelAndView mav = new ModelAndView("user/updatecollectionstory");
+		StoryDTO story = storyService.findOneById(idStory);
+		CollectionStoryDTO collectionStoryDto = collectionStoryService.findOneById(idCollectionStory);
+		mav.addObject("collectionstory", collectionStoryDto);
+		mav.addObject("story", story);
+		mav.addObject("action", "PUT");
+		return mav;
+	}
 }
